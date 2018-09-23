@@ -20,7 +20,8 @@ namespace AutomatedLivingRoom
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath( Directory.GetCurrentDirectory() )
-                .AddJsonFile( "appsettings.json", optional: false, reloadOnChange: true );
+                .AddJsonFile( "appsettings.json", optional: false, reloadOnChange: true )
+                .AddJsonFile( "appsettings.Secrets.json", optional: true, reloadOnChange: true );
 
             Configuration = builder.Build();
 
