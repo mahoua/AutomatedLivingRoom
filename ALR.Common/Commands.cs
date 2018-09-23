@@ -7,4 +7,11 @@ namespace ALR.Common
     {
         public TorrentDescriptor Torrent { get; set; }
     }
+
+    public class MoveTorrent : INotification
+    {
+        public TorrentDescriptor Torrent { get; set; }
+    }
+
+    public class MoveToMediaLibrary : INotification { }
 }

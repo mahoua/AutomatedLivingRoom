@@ -36,7 +36,7 @@ namespace ALR.Utorrent
 
             foreach ( var torrent in torrents )
             {
-                if ( torrent.Progress == 30.0 )
+                if ( torrent.Progress == 1000.0 )
                 {
                     // Log( "Label " + torrent.Label.ToString() );
 
@@ -59,7 +59,7 @@ namespace ALR.Utorrent
             return new TorrentDescriptor()
             {
                 Hash = torrent.Hash,
-                SavedPath = torrent.Path
+                SavePath = torrent.Path
             };
         }
 
