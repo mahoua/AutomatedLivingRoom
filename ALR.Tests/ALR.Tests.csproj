@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
@@ -18,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ALR.Common\ALR.Common.csproj" />
+    <ProjectReference Include="..\ALR.Console\ALR.Console.csproj" />
     <ProjectReference Include="..\ALR.Utorrent\ALR.Utorrent.csproj" />
   </ItemGroup>
 

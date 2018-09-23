@@ -1,5 +1,6 @@
 ﻿using ALR.Common;
 using MediatR;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ALR.Console
@@ -25,7 +26,9 @@ namespace ALR.Console
 
             await m_mediator.Publish( new MoveToMediaLibrary() );
 
-            // todo send email on success and log errors
+            await m_mediator.Publish( new SendEmailReport( torrents ) );
+            // todo log errors
         }
     }
+
 }

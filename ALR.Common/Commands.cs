@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using System;
+using System.Collections.Generic;
 
 namespace ALR.Common
 {
@@ -14,4 +15,14 @@ namespace ALR.Common
     }
 
     public class MoveToMediaLibrary : INotification { }
+
+    public class SendEmailReport : INotification
+    {
+        public List<TorrentDescriptor> Torrents { get; set; }
+
+        public SendEmailReport( List<TorrentDescriptor> torrents )
+        {
+            this.Torrents = torrents;
+        }
+    }
 }

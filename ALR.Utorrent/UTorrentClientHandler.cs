@@ -64,7 +64,8 @@ namespace ALR.Utorrent
             return new TorrentDescriptor()
             {
                 Hash = torrent.Hash,
-                SavePath = torrent.Path
+                SavePath = torrent.Path,
+                Name = torrent.Name
             };
         }
     }
