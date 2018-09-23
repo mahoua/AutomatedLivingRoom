@@ -9,7 +9,7 @@ using UTorrent.Api.Data;
 
 namespace ALR.Utorrent
 {
-    public class UTorrentClientHandler : IRequestHandler<GetCompletedTorrents, List<TorrentDescriptor>>
+    public class UTorrentClientHandler : IRequestHandler<GetCompletedTorrents, List<TorrentDescriptor>>, INotificationHandler<DeleteTorrent>
     {
         private readonly UTorrentClient m_client;
 
@@ -36,7 +36,7 @@ namespace ALR.Utorrent
 
             foreach ( var torrent in torrents )
             {
-                if ( torrent.Progress == 1000.0 )
+                if ( torrent.Progress == 30.0 )
                 {
                     // Log( "Label " + torrent.Label.ToString() );
 
@@ -63,5 +63,9 @@ namespace ALR.Utorrent
             };
         }
 
+        public Task Handle( DeleteTorrent notification, CancellationToken cancellationToken )
+        {
+            return m_client.DeleteTorrentAsync( notification.Torrent.Hash );
+        }
     }
 }
