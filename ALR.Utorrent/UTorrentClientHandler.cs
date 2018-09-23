@@ -54,6 +54,11 @@ namespace ALR.Utorrent
             return completed;
         }
 
+        public Task Handle( DeleteTorrent notification, CancellationToken cancellationToken )
+        {
+            return m_client.DeleteTorrentAsync( notification.Torrent.Hash );
+        }
+
         private static TorrentDescriptor ToDescriptor( Torrent torrent )
         {
             return new TorrentDescriptor()
@@ -61,11 +66,6 @@ namespace ALR.Utorrent
                 Hash = torrent.Hash,
                 SavePath = torrent.Path
             };
-        }
-
-        public Task Handle( DeleteTorrent notification, CancellationToken cancellationToken )
-        {
-            return m_client.DeleteTorrentAsync( notification.Torrent.Hash );
         }
     }
 }

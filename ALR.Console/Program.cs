@@ -9,7 +9,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace AutomatedLivingRoom
+namespace ALR.Console
 {
     class Program
     {
@@ -33,13 +33,9 @@ namespace AutomatedLivingRoom
             // Build the our IServiceProvider and set our static reference to it
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
-            IMediator mediator = ServiceProvider.GetRequiredService<IMediator>();
+            var runner = ServiceProvider.GetRequiredService<Runner>();
 
-            Task.Run( async () =>
-            {
-                var torrents = await mediator.Send( new GetCompletedTorrents() );
-            } ).Wait();
-           
+            runner.RunAsync().GetAwaiter().GetResult();           
         }
 
         private static void ConfigureServices( IServiceCollection services )
@@ -49,6 +45,7 @@ namespace AutomatedLivingRoom
             services.AddMediatR( typeof( FilebotHandler ) );
             services.AddMediatR( typeof( FileHandler ) );
             services.AddMediatR( typeof( UTorrentClientHandler ) );
+            services.AddTransient( typeof(Runner) );
         }
     }
 }
