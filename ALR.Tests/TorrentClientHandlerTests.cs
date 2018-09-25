@@ -2,6 +2,7 @@ using ALR.Common;
 using ALR.Utorrent;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -23,7 +24,7 @@ namespace ALR.Tests
             
             var config = configurationBuilder.Build();
 
-            var handler = new UTorrentClientHandler( config, new Logger() );
+            var handler = new UTorrentClientHandler( config, new Logger<UTorrentClientHandler>( new NullLoggerFactory() ) );
             var torrents = await handler.Handle( new GetCompletedTorrents() { Type = TorrentMediaType.TV }, CancellationToken.None );
         }
 
@@ -38,7 +39,7 @@ namespace ALR.Tests
 
             var config = configurationBuilder.Build();
 
-            var handler = new UTorrentClientHandler( config, new Logger() );
+            var handler = new UTorrentClientHandler( config, new Logger<UTorrentClientHandler>( new NullLoggerFactory() ) );
             var torrents = await handler.Handle( new GetCompletedTorrents() { Type = TorrentMediaType.TV }, CancellationToken.None );
             foreach ( var torrent in torrents )
             {
