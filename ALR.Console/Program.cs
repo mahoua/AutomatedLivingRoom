@@ -5,6 +5,7 @@ using ALR.Utorrent;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -18,6 +19,10 @@ namespace ALR.Console
 
         static void Main( string[] args )
         {
+            Log.Logger = new LoggerConfiguration()
+               .WriteTo.File( "alr.log" )
+               .CreateLogger();
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath( Directory.GetCurrentDirectory() )
                 .AddJsonFile( "appsettings.json", optional: false, reloadOnChange: true )
@@ -46,6 +51,7 @@ namespace ALR.Console
             services.AddMediatR( typeof( FileHandler ) );
             services.AddMediatR( typeof( UTorrentClientHandler ) );
             services.AddTransient( typeof(Runner) );
+            services.AddLogging( configure => configure.AddSerilog() );
         }
     }
 }
