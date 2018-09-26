@@ -1,6 +1,7 @@
 ﻿using ALR.Common;
 using ALR.Filebot;
 using ALR.Files;
+using ALR.qBittorrent;
 using ALR.Utorrent;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -50,6 +51,7 @@ namespace ALR.Console
             services.AddMediatR( typeof( FilebotHandler ) );
             services.AddMediatR( typeof( FileHandler ) );
             services.AddMediatR( typeof( UTorrentClientHandler ) );
+            //services.AddMediatR( typeof( qBittorrentClientHandler ) );
             services.AddTransient( typeof(Runner) );
             services.AddLogging( configure => configure.AddSerilog() );
         }

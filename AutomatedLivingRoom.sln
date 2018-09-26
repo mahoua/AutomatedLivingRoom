@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALR.Console", "ALR.Console\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALR.Utorrent", "ALR.Utorrent\ALR.Utorrent.csproj", "{1F938462-99AF-4916-9FF5-DF5A864F93BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALR.Common", "ALR.Common\ALR.Common.csproj", "{2C8FDD0E-1B96-4676-B937-538212805156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALR.Common", "ALR.Common\ALR.Common.csproj", "{2C8FDD0E-1B96-4676-B937-538212805156}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALR.Filebot", "ALR.Filebot\ALR.Filebot.csproj", "{A4F7B456-F915-499A-909C-8398A96333C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALR.Filebot", "ALR.Filebot\ALR.Filebot.csproj", "{A4F7B456-F915-499A-909C-8398A96333C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALR.Tests", "ALR.Tests\ALR.Tests.csproj", "{FCA0FBB6-3EEC-4960-9734-605336D36233}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALR.Tests", "ALR.Tests\ALR.Tests.csproj", "{FCA0FBB6-3EEC-4960-9734-605336D36233}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALR.Files", "ALR.Files\ALR.Files.csproj", "{62494CD3-40CF-48EF-ACB2-6D3B52E65674}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALR.Files", "ALR.Files\ALR.Files.csproj", "{62494CD3-40CF-48EF-ACB2-6D3B52E65674}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALR.qBittorrent", "ALR.qBittorrent\ALR.qBittorrent.csproj", "{AC9900D8-B2BE-4087-98A8-D3105478ED92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{62494CD3-40CF-48EF-ACB2-6D3B52E65674}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62494CD3-40CF-48EF-ACB2-6D3B52E65674}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62494CD3-40CF-48EF-ACB2-6D3B52E65674}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC9900D8-B2BE-4087-98A8-D3105478ED92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC9900D8-B2BE-4087-98A8-D3105478ED92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC9900D8-B2BE-4087-98A8-D3105478ED92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC9900D8-B2BE-4087-98A8-D3105478ED92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

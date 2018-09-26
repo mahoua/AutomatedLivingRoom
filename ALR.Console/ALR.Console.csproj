@@ -19,6 +19,7 @@
     <ProjectReference Include="..\ALR.Common\ALR.Common.csproj" />
     <ProjectReference Include="..\ALR.Filebot\ALR.Filebot.csproj" />
     <ProjectReference Include="..\ALR.Files\ALR.Files.csproj" />
+    <ProjectReference Include="..\ALR.qBittorrent\ALR.qBittorrent.csproj" />
     <ProjectReference Include="..\ALR.Utorrent\ALR.Utorrent.csproj" />
   </ItemGroup>
 
