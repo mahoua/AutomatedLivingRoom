@@ -2,6 +2,8 @@ using ALR.Common;
 using ALR.Console;
 using ALR.Utorrent;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -23,7 +25,7 @@ namespace ALR.Tests
 
             var config = configurationBuilder.Build();
 
-            var handler = new EmailHandler( config );
+            var handler = new EmailHandler( config, new Logger<EmailHandler>( NullLoggerFactory.Instance ) );
             await handler.Handle( new SendEmailReport( new List<TorrentDescriptor>() { new TorrentDescriptor() { Name = "Test!" } } ) , CancellationToken.None );
         }
     }

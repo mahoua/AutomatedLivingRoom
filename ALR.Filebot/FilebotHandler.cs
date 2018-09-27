@@ -5,6 +5,7 @@ using ALR.Common;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace ALR.Filebot
 {
@@ -15,22 +16,37 @@ namespace ALR.Filebot
         private readonly string m_filebotOutput;
         private readonly string m_filebotInput;
         private readonly string m_filebotTvSeriesFormat;
+        private readonly ILogger<FilebotHandler> m_logger;
 
-        public FilebotHandler( IConfiguration configuration )
+        public FilebotHandler( IConfiguration configuration, ILogger<FilebotHandler> logger )
         {
             m_filebotPath = configuration[ "Filebot:Path" ];
             m_filebotCommandLine = configuration[ "Filebot:CommandLine" ];
             m_filebotOutput = configuration[ "Filebot:Output" ];
             m_filebotInput = configuration[ "Filebot:Input" ];
             m_filebotTvSeriesFormat = configuration[ "Filebot:Formats:TV" ];
+            m_logger = logger;
         }
 
         public Task Handle( MoveToMediaLibrary notification, CancellationToken cancellationToken )
         {
+            try
+            {
+                return MoveToMediaLibrary();
+            }
+            catch ( Exception ex )
+            {
+                m_logger.LogError( ex, "Couldnt move to media library" );
+                throw;
+            }
+        }
+
+        private Task MoveToMediaLibrary()
+        {
             string args = m_filebotCommandLine
-                .Replace( "{output}", $"\"{m_filebotOutput}\"" )
-                .Replace( "{input}", $"\"{m_filebotInput}\"" )
-                .Replace( "{format}", $"\"{m_filebotTvSeriesFormat}\"" );
+                            .Replace( "{output}", $"\"{m_filebotOutput}\"" )
+                            .Replace( "{input}", $"\"{m_filebotInput}\"" )
+                            .Replace( "{format}", $"\"{m_filebotTvSeriesFormat}\"" );
 
             Process p = new Process();
             ProcessStartInfo si = new ProcessStartInfo( m_filebotPath, args )
@@ -46,13 +62,14 @@ namespace ALR.Filebot
             while ( !p.StandardOutput.EndOfStream )
             {
                 string line = p.StandardOutput.ReadLine();
+                m_logger.LogInformation( line );
             }
 
             while ( !p.StandardError.EndOfStream )
             {
                 string stderr = p.StandardError.ReadToEnd();
-                //if ( stderr != null )
-                //    Log( stderr );
+                if ( stderr != null )
+                    m_logger.LogError( stderr );
             }
 
             p.WaitForExit();
