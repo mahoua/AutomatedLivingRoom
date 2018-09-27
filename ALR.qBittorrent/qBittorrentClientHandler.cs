@@ -1,40 +1,45 @@
-﻿using MediatR;
+﻿using ALR.Common;
+using MediatR;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using qBittorrentSharp;
+using qBittorrentSharp.Data;
 using System;
 using System.Collections.Generic;
-using ALR.Common;
-using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using qBittorrent.qBittorrentApi;
 
 namespace ALR.qBittorrent
 {
     public class qBittorrentClientHandler : IRequestHandler<GetCompletedTorrents, List<TorrentDescriptor>>, INotificationHandler<DeleteTorrent>
     {
-        private readonly Api m_client;
         private readonly ILogger<qBittorrentClientHandler> m_logger;
+        private readonly string m_username;
+        private readonly string m_password;
 
         public qBittorrentClientHandler( IConfiguration configuration, ILogger<qBittorrentClientHandler> logger )
         {
-            var username = configuration[ "uTorrent:Username" ];
-            var password = configuration[ "uTorrent:Password" ];
+            m_username = configuration[ "uTorrent:Username" ];
+            m_password = configuration[ "uTorrent:Password" ];
             var ip = configuration[ "uTorrent:IP" ];
             var port = configuration.GetValue<int>( "uTorrent:Port" );
+
+            API.Initialize( $"http://{ip}:{port}" );
             
-            m_client = new Api( new ServerCredential( new Uri($"http://{ip}:{port}"), username, password ) );
             m_logger = logger;
         }
 
         public async Task<List<TorrentDescriptor>> Handle( GetCompletedTorrents request, CancellationToken cancellationToken )
         {
+            await API.Login( m_username, m_password );
+
             m_logger.LogInformation( "Getting completed torrents" );
 
             var completed = new List<TorrentDescriptor>();
 
             try
             {
-                var torrents = await m_client.GetTorrents();
+                var torrents = await API.GetTorrents();
 
                 m_logger.LogInformation( "Found {count} torrents", torrents.Count );
                 foreach ( var torrent in torrents )
@@ -73,7 +78,7 @@ namespace ALR.qBittorrent
         public Task Handle( DeleteTorrent notification, CancellationToken cancellationToken )
         {
             m_logger.LogInformation( "Deleting torrent {torrent}", notification.Torrent.Name );
-            return m_client.DeletePermanently( new List<string>() { notification.Torrent.Hash } );
+            return API.DeleteTorrents( new List<string>() { notification.Torrent.Hash } );
             // TODO do NOT delete permanently
         }
 

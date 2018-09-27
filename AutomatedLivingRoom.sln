@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALR.Files", "ALR.Files\ALR.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALR.qBittorrent", "ALR.qBittorrent\ALR.qBittorrent.csproj", "{AC9900D8-B2BE-4087-98A8-D3105478ED92}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qBittorrentSharp", "qBittorrentSharp\qBittorrentSharp.csproj", "{F90DC1FF-6CC8-4412-BC6E-4BEED83743A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{AC9900D8-B2BE-4087-98A8-D3105478ED92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC9900D8-B2BE-4087-98A8-D3105478ED92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC9900D8-B2BE-4087-98A8-D3105478ED92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F90DC1FF-6CC8-4412-BC6E-4BEED83743A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F90DC1FF-6CC8-4412-BC6E-4BEED83743A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F90DC1FF-6CC8-4412-BC6E-4BEED83743A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F90DC1FF-6CC8-4412-BC6E-4BEED83743A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

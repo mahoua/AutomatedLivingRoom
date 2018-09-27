@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+		<PackageId>qBittorrentSharp</PackageId>
+		<Title>qBittorrentSharp</Title>
+		<PackageVersion>0.1.0</PackageVersion>
+		<Authors>Terje_Uglebakken</Authors>
+		<Description>C# library to work with the qBittorrent WebUI API</Description>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageReleaseNotes>First release</PackageReleaseNotes>
+		<Copyright>Copyright (c) 2017 Terje Uglebakken.</Copyright>
+		<LicenseUrl>https://raw.githubusercontent.com/teug91/qBittorrentSharp/master/LICENSE</LicenseUrl>
+		<ProjectUrl>https://github.com/teug91/qBittorrentSharp</ProjectUrl>
+		<IconUrl>https://raw.githubusercontent.com/teug91/qBittorrentSharp/master/qblight.ico</IconUrl>
+		<PackageTags>C# qBittorrent WebUI API wrapper</PackageTags>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageProjectUrl>https://github.com/teug91/qBittorrentSharp</PackageProjectUrl>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/teug91/qBittorrentSharp/master/LICENSE</PackageLicenseUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/teug91/qBittorrentSharp/master/qblight.ico</PackageIconUrl>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+		<Version>0.2.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\qBittorrentSharp.xml</DocumentationFile>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\qBittorrentSharp.xml</DocumentationFile>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="PxtlCa.XmlCommentMarkDownGenerator" Version="0.2.6270.2853" />
+  </ItemGroup>
+
+</Project>
