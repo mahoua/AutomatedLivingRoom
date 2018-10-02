@@ -32,16 +32,18 @@ namespace ALR.Filebot
         {
             try
             {
-                return MoveToMediaLibrary();
+                m_logger.LogInformation( "Calling FileBot" );
+                MoveToMediaLibrary();
+                m_logger.LogInformation( "FileBot terminated" );
             }
             catch ( Exception ex )
             {
                 m_logger.LogError( ex, "Couldnt move to media library" );
-                throw;
             }
+            return Task.CompletedTask;
         }
 
-        private Task MoveToMediaLibrary()
+        private void MoveToMediaLibrary()
         {
             string args = m_filebotCommandLine
                             .Replace( "{output}", $"\"{m_filebotOutput}\"" )
@@ -74,7 +76,6 @@ namespace ALR.Filebot
 
             p.WaitForExit();
 
-            return Task.CompletedTask;
         }
     }
 }

@@ -20,22 +20,31 @@ namespace ALR.Console
 
         public async Task RunAsync()
         {
-            var torrents = await m_mediator.Send( new GetCompletedTorrents() { Type = TorrentMediaType.TV } );
-
-            foreach ( var torrent in torrents )
+            try
             {
-                await m_mediator.Publish( new DeleteTorrent() { Torrent = torrent } );
-                await m_mediator.Publish( new MoveTorrent() { Torrent = torrent } );
-            }
+                var torrents = await m_mediator.Send( new GetCompletedTorrents() { Type = TorrentMediaType.TV } );
 
-            if ( torrents.Any() )
-            {
-                await m_mediator.Publish( new MoveToMediaLibrary() );
+                foreach ( var torrent in torrents )
+                {
+                    await m_mediator.Publish( new DeleteTorrent() { Torrent = torrent } );
+                    await m_mediator.Publish( new MoveTorrent() { Torrent = torrent } );
+                }
+
+                if ( torrents.Any() )
+                {
+                    await m_mediator.Publish( new MoveToMediaLibrary() );
+                }
+                else
+                {
+                    m_logger.LogWarning( "No completed torrents found. Will not move anything." );
+                }
+
                 await m_mediator.Publish( new SendEmailReport( torrents ) );
             }
-            else
+            catch ( System.Exception ex )
             {
-                m_logger.LogWarning( "No completed torrents found. Will not move anything." );
+                m_logger.LogError( ex, "Error in Runner" );
+                throw;
             }
         }
     }

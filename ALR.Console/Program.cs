@@ -22,6 +22,7 @@ namespace ALR.Console
         {
             Log.Logger = new LoggerConfiguration()
                .WriteTo.File( "alr.log" )
+               .WriteTo.Console()
                .CreateLogger();
 
             var builder = new ConfigurationBuilder()
@@ -30,7 +31,6 @@ namespace ALR.Console
                 .AddJsonFile( "appsettings.Secrets.json", optional: true, reloadOnChange: true );
 
             Configuration = builder.Build();
-
 
             // Create a service collection and configure our depdencies
             var serviceCollection = new ServiceCollection();
@@ -47,10 +47,8 @@ namespace ALR.Console
         private static void ConfigureServices( IServiceCollection services )
         {
             // Make configuration settings available
-            services.AddSingleton<IConfiguration>( Configuration );
-            services.AddMediatR( typeof( FilebotHandler ) );
-            services.AddMediatR( typeof( FileHandler ) );
-            services.AddMediatR( typeof( UTorrentClientHandler ) );
+            services.AddSingleton( Configuration );
+            services.AddMediatR( typeof( EmailHandler ), typeof( FilebotHandler ), typeof( FileHandler ), typeof( UTorrentClientHandler ) );
             //services.AddMediatR( typeof( qBittorrentClientHandler ) );
             services.AddTransient( typeof(Runner) );
             services.AddLogging( configure => configure.AddSerilog() );
