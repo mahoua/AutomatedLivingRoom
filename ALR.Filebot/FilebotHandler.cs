@@ -1,11 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+﻿using ALR.Common;
 using MediatR;
-using ALR.Common;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using Microsoft.Extensions.Logging;
 
 namespace ALR.Filebot
 {
@@ -32,9 +34,9 @@ namespace ALR.Filebot
         {
             try
             {
-                m_logger.LogInformation( "Calling FileBot" );
+                m_logger.LogDebug( "Calling FileBot" );
                 MoveToMediaLibrary();
-                m_logger.LogInformation( "FileBot terminated" );
+                m_logger.LogDebug( "FileBot terminated" );
             }
             catch ( Exception ex )
             {
@@ -45,6 +47,12 @@ namespace ALR.Filebot
 
         private void MoveToMediaLibrary()
         {
+            if ( IsDirectoryEmpty( m_filebotInput ) )
+            {
+                m_logger.LogInformation( "Directory is empty, no need to call filebot" );
+                return;
+            }
+
             string args = m_filebotCommandLine
                             .Replace( "{output}", $"\"{m_filebotOutput}\"" )
                             .Replace( "{input}", $"\"{m_filebotInput}\"" )
@@ -75,7 +83,12 @@ namespace ALR.Filebot
             }
 
             p.WaitForExit();
+        }
 
+
+        private static bool IsDirectoryEmpty( string path )
+        {
+            return !Directory.EnumerateFileSystemEntries( path ).Any();
         }
     }
 }

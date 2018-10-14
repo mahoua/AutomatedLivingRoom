@@ -28,7 +28,7 @@ namespace ALR.Utorrent
 
         public async Task<List<TorrentDescriptor>> Handle( GetCompletedTorrents request, CancellationToken cancellationToken )
         {
-            m_logger.LogInformation( "Getting completed torrents" );
+            m_logger.LogDebug( "Getting completed torrents" );
             try
             {
                 return await GetCompletedTorrents( request );

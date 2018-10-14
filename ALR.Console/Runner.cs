@@ -30,15 +30,8 @@ namespace ALR.Console
                     await m_mediator.Publish( new MoveTorrent() { Torrent = torrent } );
                 }
 
-                if ( torrents.Any() )
-                {
-                    await m_mediator.Publish( new MoveToMediaLibrary() );
-                }
-                else
-                {
-                    m_logger.LogWarning( "No completed torrents found. Will not move anything." );
-                }
-
+                await m_mediator.Publish( new MoveToMediaLibrary() );
+                
                 await m_mediator.Publish( new SendEmailReport( torrents ) );
             }
             catch ( System.Exception ex )

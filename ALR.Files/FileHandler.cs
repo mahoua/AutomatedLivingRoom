@@ -23,7 +23,7 @@ namespace ALR.Files
             }
             catch ( System.Exception ex )
             {
-                m_logger.LogError( ex, "Couldnt create destination folder" );
+                m_logger.LogError( ex, "Couldn't create destination folder" );
             }
         }
 
