@@ -57,7 +57,7 @@ namespace ALR.Console
                 mail.From = new MailAddress( m_from );
                 mail.To.Add( m_destination );
 
-                mail.Subject = string.Format( "[ALR] {0}", notification.Torrents.First().Name );
+                mail.Subject = string.Format( "{0}", notification.Torrents.First().Name );
 
                 mail.IsBodyHtml = true;
                 mail.Body = string.Empty;
@@ -65,7 +65,14 @@ namespace ALR.Console
                 // LiTEEM 1.0
                 // Least Intelligent Templating Engine Ever Made 1.0
                 mail.Body += "<html>";
+                mail.Body += "<body>";
+                foreach ( var t in notification.Torrents )
+                {
+                    mail.Body += t.Name;
+                    mail.Body += "<br/>";
+                }
 
+                mail.Body += "</body>";
                 mail.Body += "</html>";
                 SmtpClient smtp = new SmtpClient( m_smtp, m_port );
                 smtp.Credentials = new NetworkCredential( m_username, m_password );
