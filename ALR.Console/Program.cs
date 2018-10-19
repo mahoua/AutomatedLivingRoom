@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ALR.Console
@@ -20,13 +21,15 @@ namespace ALR.Console
 
         static void Main( string[] args )
         {
+            var currentFolder = Path.GetDirectoryName( Assembly.GetEntryAssembly().Location );
+
             Log.Logger = new LoggerConfiguration()
-               .WriteTo.File( "alr.log" )
+               .WriteTo.File( Path.Combine( currentFolder, "alr.log" ) )
                .WriteTo.Console()
                .CreateLogger();
 
             var builder = new ConfigurationBuilder()
-                .SetBasePath( Directory.GetCurrentDirectory() )
+                .SetBasePath( currentFolder )
                 .AddJsonFile( "appsettings.json", optional: false, reloadOnChange: true )
                 .AddJsonFile( "appsettings.Secrets.json", optional: true, reloadOnChange: true );
 
@@ -41,7 +44,14 @@ namespace ALR.Console
 
             var runner = ServiceProvider.GetRequiredService<Runner>();
 
-            runner.RunAsync().GetAwaiter().GetResult();           
+            try
+            {
+                runner.RunAsync().GetAwaiter().GetResult();
+            }
+            catch ( Exception ex )
+            {
+                Log.Logger.Error( ex, "Error in program.cs" );
+            }
         }
 
         private static void ConfigureServices( IServiceCollection services )

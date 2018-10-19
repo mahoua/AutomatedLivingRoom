@@ -29,10 +29,19 @@ namespace ALR.Files
 
         public Task Handle( MoveTorrent notification, CancellationToken cancellationToken )
         {
-            var folder = Path.GetFileName( notification.Torrent.SavePath );
-            var destination = Path.Combine( m_moveDestination, folder );
-            m_logger.LogInformation( "Moving {torrent} to {destination}", notification.Torrent.Name, destination );
-            Directory.Move( notification.Torrent.SavePath, destination );
+            try
+            {
+
+                var folder = Path.GetFileName( notification.Torrent.SavePath );
+                var destination = Path.Combine( m_moveDestination, folder );
+                m_logger.LogInformation( "Moving {torrent} to {destination}", notification.Torrent.Name, destination );
+                Directory.Move( notification.Torrent.SavePath, destination );
+            }
+            catch ( System.Exception ex )
+            {
+                m_logger.LogError( ex, "Couldn't move destination {folder}", notification.Torrent.SavePath );
+            }
+
             return Task.CompletedTask;
         }
     }
